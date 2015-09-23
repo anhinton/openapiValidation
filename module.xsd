@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="module">
+    <xs:attribute name="language" type="xs:string" use="required"/>
+    <xs:complexType>
+      <xs:element name="description" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
