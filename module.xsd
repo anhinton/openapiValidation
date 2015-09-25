@@ -1,9 +1,72 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="module">
-    <xs:attribute name="language" type="xs:string" use="required"/>
     <xs:complexType>
-      <xs:element name="description" type="xs:string"/>
+      <xs:complexContent>
+	<xs:attribute name="language" type="xs:string" use="required"/>
+	<xs:attribute name="host" type="xs:string"/>
+	<xs:element name="description" type="xs:string" maxOccurs="1"/>
+	<xs:element name="input" type="IOelements"/>
+	<xs:element name="output" type="IOelements"/>
+	<xs:element name="source" type="sourceElements"/>	
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
+
+  <xs:complexType name="sourceElements">
+    <xs:choice>
+      <xs:group ref="vessels"/>
+      <xs:element name="script" type="CDATA">
+	<xs:complexType>
+	  <xs:simpleContent>
+	    <xs:attribute name="order" type="xs:string"/>
+	  </xs:simpleContent>
+	</xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="IOelements">
+    <xs:choice>
+      <xs:group ref="vessels"/>
+      <xs:element name="internal">
+	<xs:complexType>
+	  <xs:complexContent>
+	    <xs:attribute name="symbol" type="xs:string" use="required"/>
+	  </xs:complexContent>
+	</xs:complexType>
+      </xs:element>
+    </xs:choice>
+    <xs:complexContent>
+      <xs:element name="format" minOccurs="1" maxOccurs="1">
+	<xs:complexType>
+	  <xs:simpleContent>
+	    <xs:attribute name="formatType" type="xs:string"/>
+	  </xs:simpleContent>
+	</xs:complexType>
+      </xs:element>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:group name="vessels">
+    <xs:choice>
+      <xs:element name="file">
+	<xs:complexType>
+	  <xs:complexContent>
+	    <xs:attribute name="ref" type="xs:string" use="required"/>
+	    <xs:attribute name="path" type="xs:string"/>
+	  </xs:complexContent>
+	</xs:complexType>
+      </xs:element>
+      <xs:element name="url">
+	<xs:complexType>
+	  <xs:complexContent>
+	    <xs:attribute name="ref" type="xs:string" use="required"/>
+	  </xs:complexContent>
+	</xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
 </xs:schema>
+
+
