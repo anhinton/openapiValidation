@@ -1,0 +1,20 @@
+<!ELEMENT pipeline (description?, component+, pipe*)>
+<!ELEMENT component (module?)>
+<!ENTITY % module SYSTEM "./module.dtd">
+%module;
+<!ELEMENT pipe (start, end)>
+<!ELEMENT start EMPTY>
+<!ELEMENT end EMPTY>
+<!ATTLIST pipeline
+	  xmlns CDATA #IMPLIED>
+<!ATTLIST component
+	  name ID #REQUIRED
+	  ref CDATA #IMPLIED
+	  path CDATA #IMPLIED
+	  type (pipeline|module) #IMPLIED>
+<!ATTLIST start
+	  component CDATA #REQUIRED
+	  output CDATA #REQUIRED>
+<!ATTLIST end
+	  component CDATA #REQUIRED
+	  input CDATA #REQUIRED>
