@@ -1,72 +1,78 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="module">
-    <xs:complexType>
-      <xs:complexContent>
-	<xs:attribute name="language" type="xs:string" use="required"/>
-	<xs:attribute name="host" type="xs:string"/>
-	<xs:element name="description" type="xs:string" maxOccurs="1"/>
-	<xs:element name="input" type="IOelements"/>
-	<xs:element name="output" type="IOelements"/>
-	<xs:element name="source" type="sourceElements"/>	
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:oa="http://www.openapi.org/2014/"
+        targetNamespace="http://www.openapi.org/2014/"
+        elementFormDefault="unqualified"
+        attributeFormDefault="unqualified">
 
-  <xs:complexType name="sourceElements">
-    <xs:choice>
-      <xs:group ref="vessels"/>
-      <xs:element name="script" type="CDATA">
-	<xs:complexType>
-	  <xs:simpleContent>
-	    <xs:attribute name="order" type="xs:string"/>
-	  </xs:simpleContent>
-	</xs:complexType>
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
+  <element name="module" type="oa:ModuleType"/>
+  <element name="description" type="string"/>
+  <element name="input" type="oa:IOType"/>
+  <element name="source" type="oa:SourceType"/>
+  <element name="output" type="oa:IOType"/>
+  <element name="internal" type="oa:InternalType"/>
+  <element name="file" type="oa:FileType"/>
+  <element name="url" type="oa:URLType"/>
+  <element name="script" type="oa:ScriptType"/>
+  <element name="format" type="oa:FormatType"/>
 
-  <xs:complexType name="IOelements">
-    <xs:choice>
-      <xs:group ref="vessels"/>
-      <xs:element name="internal">
-	<xs:complexType>
-	  <xs:complexContent>
-	    <xs:attribute name="symbol" type="xs:string" use="required"/>
-	  </xs:complexContent>
-	</xs:complexType>
-      </xs:element>
-    </xs:choice>
-    <xs:complexContent>
-      <xs:element name="format" minOccurs="1" maxOccurs="1">
-	<xs:complexType>
-	  <xs:simpleContent>
-	    <xs:attribute name="formatType" type="xs:string"/>
-	  </xs:simpleContent>
-	</xs:complexType>
-      </xs:element>
-    </xs:complexContent>
-  </xs:complexType>
+  <complexType name="ModuleType">
+    <sequence>
+      <element ref="oa:description" minOccurs="0" maxOccurs="1"/>
+      <element ref="oa:input" minOccurs="0"/>
+      <element ref="oa:source" minOccurs="0"/>
+      <element ref="oa:output" minOccurs="0"/>
+    </sequence>
+    <attribute name="language" type="string" use="required"/>
+    <attribute name="host" type="string"/>
+  </complexType>
+
+  <complexType name="IOType">
+    <sequence>
+      <choice>
+	<element ref="oa:internal"/>
+	<element ref="oa:file"/>
+	<element ref="oa:url"/>
+      </choice>
+      <element ref="oa:format"/>
+    </sequence>
+    <attribute name="name" type="string" use="required"/>
+  </complexType>
+
+  <complexType name="SourceType">
+    <sequence>
+      <choice>
+	<element ref="oa:file"/>
+	<element ref="oa:url"/>
+	<element ref="oa:script"/>
+      </choice>
+    </sequence>
+    <attribute name="order" type="string"/>
+  </complexType>
+
+  <complexType name="InternalType">
+    <attribute name="symbol" type="string" use="required"/>
+  </complexType>
   
-  <xs:group name="vessels">
-    <xs:choice>
-      <xs:element name="file">
-	<xs:complexType>
-	  <xs:complexContent>
-	    <xs:attribute name="ref" type="xs:string" use="required"/>
-	    <xs:attribute name="path" type="xs:string"/>
-	  </xs:complexContent>
-	</xs:complexType>
-      </xs:element>
-      <xs:element name="url">
-	<xs:complexType>
-	  <xs:complexContent>
-	    <xs:attribute name="ref" type="xs:string" use="required"/>
-	  </xs:complexContent>
-	</xs:complexType>
-      </xs:element>
-    </xs:choice>
-  </xs:group>
-</xs:schema>
+  <simpleType name="ScriptType">
+    <restriction base="string"/>
+  </simpleType>
 
+  <complexType name="FileType">
+    <attribute name="ref" type="string" use="required"/>
+    <attribute name="path" type="string"/>
+  </complexType>
 
+  <complexType name="URLType">
+    <attribute name="ref" type="string" use="required"/>
+  </complexType>
+
+  <complexType name="FormatType">
+    <simpleContent>
+      <extension base="string">
+	<attribute name="formatType" type="string"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+</schema>
