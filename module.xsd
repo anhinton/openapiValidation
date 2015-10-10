@@ -1,15 +1,13 @@
 <?xml version="1.0"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         xmlns:oa="http://www.openapi.org/2014/"
-        targetNamespace="http://www.openapi.org/2014/"
-        elementFormDefault="unqualified"
-        attributeFormDefault="unqualified">
+        targetNamespace="http://www.openapi.org/2014/">
 
   <element name="module" type="oa:ModuleType"/>
   <element name="description" type="string"/>
   <element name="input" type="oa:IOType"/>
-  <element name="source" type="oa:SourceType"/>
   <element name="output" type="oa:IOType"/>
+  <element name="source" type="oa:SourceType"/>
   <element name="internal" type="oa:InternalType"/>
   <element name="file" type="oa:FileType"/>
   <element name="url" type="oa:URLType"/>
@@ -18,10 +16,10 @@
 
   <complexType name="ModuleType">
     <sequence>
-      <element ref="oa:description" minOccurs="0" maxOccurs="1"/>
-      <element ref="oa:input" minOccurs="0"/>
-      <element ref="oa:source" minOccurs="0"/>
-      <element ref="oa:output" minOccurs="0"/>
+      <element ref="oa:description" minOccurs="0"/>
+      <element ref="oa:input" minOccurs="0" maxOccurs="unbounded"/>
+      <element ref="oa:source" minOccurs="0" maxOccurs="unbounded"/>
+      <element ref="oa:output" minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
     <attribute name="language" type="string" use="required"/>
     <attribute name="host" type="string"/>
