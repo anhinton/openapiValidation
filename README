@@ -1,1 +1,5 @@
-OpenAPI module and pipeline document type definition
+OpenAPI XML validation
+======================
+
+XML Schema and Document Type Definition files for validating OpenAPI
+pipeline and module XML files.
