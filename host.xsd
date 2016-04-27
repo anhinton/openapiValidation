@@ -7,7 +7,15 @@
 
   <complexType name="VagrantType">
     <attribute name="vagrantfile" type="string" use="required"/>
-    <attribute name="location" type="string"/>
+    <attribute name="guestdir" type="string"/>
+    <attribute name="hostdir" type="string"/>
+  </complexType>
+  
+  <element name="docker" type="oa:DockerType"/>
+
+  <complexType name="DockerType">
+    <attribute name="image" type="string" use="required"/>
+    <attribute name="guestdir" type="string"/>
   </complexType>
   
 </schema>
